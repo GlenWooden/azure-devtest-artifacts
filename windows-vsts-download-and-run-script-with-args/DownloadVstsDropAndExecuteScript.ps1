@@ -51,7 +51,7 @@ function GetBuildDefinitionId
         if (($null -ne $Error[0]) -and ($null -ne $Error[0].Exception) -and ($null -ne $Error[0].Exception.Message))
         {
             $errMsg = $Error[0].Exception.Message
-            Write-Host $errMsg
+            Write-Error $errMsg
         }
         exit -1
     }
@@ -67,7 +67,7 @@ function GetLatestBuild
 
     try 
     {
-        Write-Host "GetLatestBuild from $buildUri"
+        Write-Output "GetLatestBuild from $buildUri"
         $builds = Invoke-RestMethod -Uri $buildUri -Headers $headers -Method Get -ErrorAction Stop | ConvertTo-Json | ConvertFrom-Json
         return $builds.value[0].id
     }
@@ -76,7 +76,7 @@ function GetLatestBuild
         if (($null -ne $Error[0]) -and ($null -ne $Error[0].Exception) -and ($null -ne $Error[0].Exception.Message))
         {
             $errMsg = $Error[0].Exception.Message
-            Write-Host $errMsg
+            Write-Error $errMsg
         }
         exit -1
     }
@@ -95,11 +95,11 @@ function DownloadBuildArtifacts
 
     try 
     {
-        Write-Host "Get artifacts from $artifactsUri"
+        Write-Output "Get artifacts from $artifactsUri"
         $artifacts = Invoke-RestMethod -Uri $artifactsUri -Headers $headers -Method Get  -ErrorAction Stop | ConvertTo-Json -Depth 3 | ConvertFrom-Json
         $DownloadUri = $artifacts.value.resource.downloadUrl
 
-        Write-Host "Download from $DownloadUri"
+        Write-Output "Download from $DownloadUri"
         Invoke-RestMethod -Uri $DownloadUri -Headers $headers -Method Get -Outfile $outfile -ErrorAction Stop
 
         if (Test-Path $destination -PathType Container)
@@ -115,7 +115,7 @@ function DownloadBuildArtifacts
         if (($null -ne $Error[0]) -and ($null -ne $Error[0].Exception) -and ($null -ne $Error[0].Exception.Message))
         {
             $errMsg = $Error[0].Exception.Message
-            Write-Host $errMsg
+            Write-Error $errMsg
         }
         exit -1
     }
