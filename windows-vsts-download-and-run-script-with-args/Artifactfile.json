@@ -29,7 +29,7 @@
         "scriptArguments": {
             "type": "string",
             "displayName": "Additional Arguments for script execution",
-            "description": "e.g. /Y"
+            "description": "e.g. /Y etc"
         }
     },
     "runCommand": {
