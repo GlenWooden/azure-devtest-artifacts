@@ -1,0 +1,48 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+    "title": "Download File From S3 Bucket",
+    "description": "Downloads a file from S3 bucket and save locally",
+    "publisher": "Matt",
+    "iconUri": "",
+    "targetOsType": "Windows",
+    "parameters": {
+        "BucketName": {
+            "type": "string",
+            "displayName": "S3 Bucket Name",
+            "description": "The name of the bucket in S3"
+        },
+        "AccessKey": {
+            "type": "string",
+            "displayName": "AWS Access Key",
+            "description": "An access key with S3 Read Access"
+        },
+        "SecretKey": {
+            "type": "securestring",
+            "displayName": "Secret Key",
+            "description": "The Secret Key for the above Access Key"
+        },
+        "Region": {
+            "type": "string",
+            "displayName": "Region",
+            "description": "The AWS region that the S3 bucket is located (defaults to ap)"
+        },
+        "S3FileName": {
+            "type": "string",
+            "displayName": "S3 File Key",
+            "description": "The name of the file in the S3 bucket (Key)"
+        },
+        "SaveFolder": {
+            "type": "string",
+            "displayName": "Download Folder",
+            "description": "The local location to store the downloaded file"
+        },
+        "SaveFileName": {
+            "type": "string",
+            "displayName": "File Name",
+            "description": "The name of the local file"
+        }
+    },
+    "runCommand": {
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File DownloadS3BucketFile.ps1', ' -bucketName ', parameters('BucketName'), ' -accessKey ', parameters('AccessKey'), ' -secretKey ', parameters('SecretKey'), ' -saveFileName ', parameters('SaveFileName'),' -region ', parameters('Region'),' -S3FileName ', parameters('S3FileName'), ' -saveFolder ', parameters('SaveFolder'))]"
+    }
+}
