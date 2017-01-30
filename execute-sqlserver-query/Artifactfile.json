@@ -1,0 +1,28 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+    "title": "Run an SQL Query against an MSSQL Database ",
+    "description": "Runs an SQL Query against an MSSQL Database",
+    "publisher": "Matt",
+    "iconUri": "",
+    "targetOsType": "Windows",
+    "parameters": {
+        "serverInstance": {
+            "type": "string",
+            "displayName": "Sql Server Instance",
+            "description": "The sql server instance to run the query against e.g. (local) or (local)\\Accounts"
+        },
+        "databaseName": {
+            "type": "string",
+            "displayName": "Database Name",
+            "description": "The name of the database"
+        },
+        "query": {
+            "type": "string",
+            "displayName": "Query",
+            "description": "The query to execute against the database"
+        }
+    },
+    "runCommand": {
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File ExecuteSqlServerQuery.ps1', ' -serverInstance ', parameters('serverInstance'), ' -databaseName ', parameters('databaseName'), ' -query ', parameters('query'))]"
+    }
+}
